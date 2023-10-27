@@ -1,7 +1,7 @@
 """
 Description: Module 05 demonstration: Functions with Unit Testing
 Author: ACE Faculty
-Date: 2023-10-25
+Date: {current date}
 Usage: To execute the unit tests: 
         From the unit_testing directory in the Terminal:
         python -m unittest -v tests/test_functions.py
@@ -10,48 +10,82 @@ Usage: To execute the unit tests:
         python src/functions.py
 """
  
-import unittest
-from unittest.mock import patch
-from src.functions import greet_name_age, grade_outcome
+def greet_name_age(name: str, age: int)->str:
+    """
+    Prints a greeting which includes 
+    the values of the name and age arguments.
  
-class TestGreetName(unittest.TestCase):
-    def test_greet_name_with_all_parameters(self):
-        # Arrange
-        name = "Joe"
-        age = 25
-        expected = "Hello Joe, you are 25 years old!"
-        # Act
-        actual = greet_name_age(name, age)
-        # Assert
-        self.assertEqual(expected, actual)
-    def test_grade_outcome_a_plus(self):
-        # Arrange
-        grade = 91
-        expected = "A+"
-        # Act
-        actual = grade_outcome(grade)
-        # Assert
-        self.assertEqual(expected, actual)
-    def test_grade_outcome_pass(self):
-        # Arrange
-        grade = 76
-        low_edge = 50
-        high_edge = 90
-        expected = "Pass"
-        # Act
-        # actual = grade_outcome(grade)
-        # Act and Assert including edge cases
-        self.assertEqual(expected, grade_outcome(grade))
-        self.assertEqual(expected, grade_outcome(low_edge))
-        self.assertEqual(expected, grade_outcome(high_edge))
-    def test_grade_outcome_fail(self):
-        # Arrange
-        grade = 40
-        high_edge = 49
-        negative = -1
-        expected = "Fail"
+    Args:
+        name (str): The name of the person to greet.
+        age (int): The age of the person to greet.
+    
+    Returns:
+        str: A greeting including the parameter values.
+    """
+    return f"Hello {name}, you are {age} years old!"
  
-        # Act and Assert including edge cases
-        self.assertEqual(expected, grade_outcome(grade))
-        self.assertEqual(expected, grade_outcome(high_edge))
-        self.assertEqual(expected, grade_outcome(negative))        
+def grade_outcome(grade: int) -> str:
+    """
+    Provides a string outcome based on a grade argument.
+ 
+    Args:
+        grade (int): The earned grade.
+    
+    Returns:
+        str: The string equivalent to the grade.
+    """
+    if grade > 90:
+        output = "A+"
+    elif grade >= 50:
+        output = "Pass"
+    else:
+        output = "Fail"
+    return output
+ 
+def prompt_name_greeting()->str:
+    """
+    Prompts the user for their name and city, and 
+    returns a phrase including both values.
+ 
+    Args:
+        name (int): The first operand.
+        city (int): The second operand.
+    Returns:
+        str: A greeting with both argument values included.
+    """
+    name = input("Enter your name: ")
+    city = input("Enter your current city: ")
+ 
+    return f"Your name is {name} and your current city is {city}."
+
+
+ 
+def math_operation(operand1: int, operand2: int, operation: str = "+")-> float:
+    """
+    Returns the result of the specified operation based 
+    on the two operands.
+ 
+    Args:
+        operand1 (int): The first operand.
+        operand2 (int): The second operand.
+        operation (str): The operation to perform, default = "+"
+    Returns:
+        None
+    Raises:
+        ValueError:  "Invalid operation." When operation is not + or -.
+    """
+    
+    if operation == "+":
+        result = operand1 + operand2
+    elif operation == "-":
+        result = operand1 - operand2
+    else:
+        raise ValueError("Invalid operation.")   
+    
+    return result
+def integration()->None:
+    print(math_operation(1, 2, "+"))
+    print(prompt_name_greeting())
+ 
+if __name__ == "__main__":
+    integration()
